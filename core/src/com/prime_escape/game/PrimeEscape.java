@@ -1,15 +1,16 @@
 package com.prime_escape.game;
+import com.badlogic.gdx.Game;
 
-import com.badlogic.gdx.ApplicationAdapter;
-
-public class PrimeEscape extends ApplicationAdapter {
+public class PrimeEscape extends Game {
 
 	@Override
 	public void create () {
+		setScreen(new PlayingGameScreen());
 	}
 
 	@Override
 	public void render () {
+		super.render();
 	}
 	
 	@Override
