@@ -42,6 +42,11 @@ public class PlayingGameScreen implements Screen {
             stage.addActor(score);
         }
 
+        distributeActorsInUlamSpiralOrder();
+
+    }
+
+    public void distributeActorsInUlamSpiralOrder () {
         float xPositionOfField = (800f / 2f) - numberActors.get(0).getWidth() / 2;
         float yPositionOfField = (480f / 2f) - numberActors.get(0).getHeight() / 2;
         float stepSize = numberActors.get(0).getWidth();
