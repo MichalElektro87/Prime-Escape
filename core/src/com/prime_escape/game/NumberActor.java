@@ -79,6 +79,12 @@ public class NumberActor extends Actor {
     }
 
     public void checkIfPrime () {
+
+        if (idNumber == 0 || idNumber == 1) {
+            this.prime = false;
+            return;
+        }
+
         for (int i = 2; i <= Math.sqrt(this.idNumber); i ++) {
             if (this.idNumber % i == 0) {
                 this.prime = false;

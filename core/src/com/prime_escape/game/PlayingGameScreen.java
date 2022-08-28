@@ -14,11 +14,13 @@ public class PlayingGameScreen implements Screen {
     private Stage stage;
     private Array<NumberActor> numberActors;
     private Score score;
+    private EndGameTextActor endGameTextActor;
     private boolean lock = false;
     private int numSteps = 1;
     private int state = 0;
     private int turnCounter = 0;
     private int step = 1;
+    private float elapsedTime = 0f;
 
     public PlayingGameScreen (PrimeEscape game) {
         this.game = game;
@@ -30,9 +32,11 @@ public class PlayingGameScreen implements Screen {
         stage = new Stage(new FitViewport(800f, 480f));
         numberActors = new Array<>();
         score = new Score(game);
+        endGameTextActor = new EndGameTextActor(game);
+        endGameTextActor.setup();
         Gdx.input.setInputProcessor(stage);
 
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < game.numberCounter; i++) {
             numberActors.add(new NumberActor(game));
             numberActors.get(i).setup();
             numberActors.get(i).setIdNumber(i);
@@ -90,7 +94,9 @@ public class PlayingGameScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClearColor(0, 0, 1, 1);
+        elapsedTime+=Gdx.graphics.getDeltaTime();
+
+        Gdx.gl.glClearColor(0, 0.5f, 0.5f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act();
@@ -100,6 +106,11 @@ public class PlayingGameScreen implements Screen {
             lock = true;
             game.endGame = true;
             System.out.println("Success!!!");
+            for (int i = 0; i < stage.getActors().size; i ++) {
+                stage.getActors().get(i).setVisible(false);
+            }
+            endGameTextActor.setTime(elapsedTime);
+            stage.addActor(endGameTextActor);
         }
 
     }
