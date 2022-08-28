@@ -2,10 +2,13 @@ package com.prime_escape.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
+
 public class PrimeEscape extends Game {
 
 	private BitmapFont defaultFont;
-	private int primeCounter = 0;
+	public boolean endGame = false;
+	public int score = 0;
+	public int numberOfPrimes = 0;
 
 	@Override
 	public void create () {
@@ -18,22 +21,10 @@ public class PrimeEscape extends Game {
 		super.render();
 	}
 
-
 	public BitmapFont getDefaultFont () {
 		return defaultFont;
 	}
 
-	public void increasePrimeCounter () {
-		primeCounter++;
-	}
-
-	public void decreasePrimeCounter () {
-		primeCounter--;
-	}
-
-	public int getPrimeCounter () {
-		return primeCounter;
-	}
 
 	@Override
 	public void dispose () {

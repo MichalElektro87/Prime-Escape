@@ -11,14 +11,10 @@ public class Score extends Actor {
         this.game = game;
     }
 
-    public void setup () {
-
-    }
-
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        game.getDefaultFont().draw(batch, "Score: " + game.getPrimeCounter(), 710f, 460f);
+        game.getDefaultFont().draw(batch, "Score: " + game.score, 710f, 460f);
     }
 
     @Override

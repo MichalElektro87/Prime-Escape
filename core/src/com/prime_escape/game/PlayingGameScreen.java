@@ -14,6 +14,7 @@ public class PlayingGameScreen implements Screen {
     private Stage stage;
     private Array<NumberActor> numberActors;
     private Score score;
+    private boolean lock = false;
     private int numSteps = 1;
     private int state = 0;
     private int turnCounter = 0;
@@ -31,7 +32,7 @@ public class PlayingGameScreen implements Screen {
         score = new Score(game);
         Gdx.input.setInputProcessor(stage);
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 9; i++) {
             numberActors.add(new NumberActor(game));
             numberActors.get(i).setup();
             numberActors.get(i).setIdNumber(i);
@@ -40,6 +41,9 @@ public class PlayingGameScreen implements Screen {
             numberActors.get(i).setTouchable(Touchable.enabled);
             stage.addActor(numberActors.get(i));
             stage.addActor(score);
+            if (numberActors.get(i).isPrime()) {
+                game.numberOfPrimes++;
+            }
         }
 
         distributeActorsInUlamSpiralOrder();
@@ -91,6 +95,12 @@ public class PlayingGameScreen implements Screen {
 
         stage.act();
         stage.draw();
+
+        if (game.numberOfPrimes <= 0 && !lock) {
+            lock = true;
+            game.endGame = true;
+            System.out.println("Success!!!");
+        }
 
     }
 

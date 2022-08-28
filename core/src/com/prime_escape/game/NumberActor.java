@@ -28,23 +28,22 @@ public class NumberActor extends Actor {
         rectangle = new Rectangle();
         setSize(textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
         rectangle.setSize(getWidth(), getHeight());
-
-
     }
 
     public void buildInputListener () {
         addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println(idNumber + " " + isPrime());
-
-                if (isVisible()) {
-                    if (isPrime()) {
-                        setVisible(false);
-                        game.increasePrimeCounter();
+                if (!game.endGame) {
+                    if (isVisible()) {
+                        if (isPrime()) {
+                            setVisible(false);
+                            game.score++;
+                            game.numberOfPrimes--;
+                        } else {
+                            game.score--;
+                        }
                     }
-                    else {
-                        game.decreasePrimeCounter();
-                    }
+                    System.out.println(game.numberOfPrimes);
                 }
                 return true;
             }
@@ -61,7 +60,7 @@ public class NumberActor extends Actor {
         super.draw(batch, parentAlpha);
 
         batch.draw(textureRegion, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
-        game.getDefaultFont().draw(batch, ""+idNumber, getX() + getWidth() / 2f, getY() + getHeight() / 2f);
+        game.getDefaultFont().draw(batch, ""+ idNumber, getX() + getWidth() / 2f, getY() + getHeight() / 2f);
 
     }
 
