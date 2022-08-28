@@ -30,6 +30,8 @@ public class PlayingGameScreen implements Screen {
             numberActors.add(new NumberActor());
             numberActors.get(i).setup();
             numberActors.get(i).setIdNumber(i);
+            numberActors.get(i).checkIfPrime();
+            numberActors.get(i).buildInputListener();
             numberActors.get(i).setTouchable(Touchable.enabled);
             stage.addActor(numberActors.get(i));
         }
@@ -63,8 +65,12 @@ public class PlayingGameScreen implements Screen {
                 }
             }
             step++;
-            if (step == 10)
+            if (step == 11)
                 break;
+        }
+
+        for (int i = 0; i < numberActors.size; i ++) {
+            System.out.println(i + " " + numberActors.get(i).isPrime());
         }
     }
 
