@@ -24,7 +24,7 @@ public class EndGameTextActor extends Actor {
 
         game.getDefaultFont().draw(batch, "Yuuupi!! You have found all primes!\n\n" +
                 "Your score is: " + game.score + " and time: "+ Math.round(time) +" s. I know you can do better!!!" , 200f, 240f + game.getDefaultFont().getLineHeight() ,400f ,1 ,true);
-        
+
     }
 
     public void setTime (float time) {

@@ -7,7 +7,7 @@ public class PrimeEscape extends Game {
 
 	private BitmapFont defaultFont;
 	public boolean endGame = false;
-	public int numberCounter = 5;
+	public int numberCounter = 90;
 	public int score = 0;
 	public int numberOfPrimes = 0;
 

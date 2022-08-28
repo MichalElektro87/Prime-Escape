@@ -41,6 +41,7 @@ public class PlayingGameScreen implements Screen {
             numberActors.get(i).setup();
             numberActors.get(i).setIdNumber(i);
             numberActors.get(i).checkIfPrime();
+            numberActors.get(i).getGlyphLayout().setText(game.getDefaultFont(), String.valueOf(numberActors.get(i).getIdNumber()));
             numberActors.get(i).buildInputListener();
             numberActors.get(i).setTouchable(Touchable.enabled);
             stage.addActor(numberActors.get(i));

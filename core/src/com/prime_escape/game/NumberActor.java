@@ -3,6 +3,7 @@ package com.prime_escape.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -15,6 +16,7 @@ public class NumberActor extends Actor {
     private Texture texture;
     private TextureRegion textureRegion;
     private Rectangle rectangle;
+    private GlyphLayout glyphLayout;
     private int idNumber = 0;
     private boolean prime = true;
 
@@ -28,6 +30,7 @@ public class NumberActor extends Actor {
         rectangle = new Rectangle();
         setSize(textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
         rectangle.setSize(getWidth(), getHeight());
+        glyphLayout = new GlyphLayout();
     }
 
     public void buildInputListener () {
@@ -60,7 +63,7 @@ public class NumberActor extends Actor {
         super.draw(batch, parentAlpha);
 
         batch.draw(textureRegion, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
-        game.getDefaultFont().draw(batch, ""+ idNumber, getX() + getWidth() / 2f, getY() + getHeight() / 2f);
+        game.getDefaultFont().draw(batch, ""+ idNumber, getX() + getWidth() / 2f - getGlyphLayout().width / 2, getY() + getHeight() / 2f + getGlyphLayout().height / 2);
 
     }
 
@@ -95,6 +98,10 @@ public class NumberActor extends Actor {
 
     public boolean isPrime () {
         return this.prime;
+    }
+
+    public GlyphLayout getGlyphLayout () {
+        return glyphLayout;
     }
 
 }
