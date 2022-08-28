@@ -11,11 +11,16 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class NumberActor extends Actor {
 
+    private final PrimeEscape game;
     private Texture texture;
     private TextureRegion textureRegion;
     private Rectangle rectangle;
     private int idNumber = 0;
     private boolean prime = true;
+
+    public NumberActor (PrimeEscape game) {
+        this.game = game;
+    }
 
     public void setup () {
         texture = new Texture(Gdx.files.internal("field.png"));
@@ -30,7 +35,17 @@ public class NumberActor extends Actor {
     public void buildInputListener () {
         addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println(isPrime());
+                System.out.println(idNumber + " " + isPrime());
+
+                if (isVisible()) {
+                    if (isPrime()) {
+                        setVisible(false);
+                        game.increasePrimeCounter();
+                    }
+                    else {
+                        game.decreasePrimeCounter();
+                    }
+                }
                 return true;
             }
 
@@ -46,6 +61,7 @@ public class NumberActor extends Actor {
         super.draw(batch, parentAlpha);
 
         batch.draw(textureRegion, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+        game.getDefaultFont().draw(batch, ""+idNumber, getX() + getWidth() / 2f, getY() + getHeight() / 2f);
 
     }
 
