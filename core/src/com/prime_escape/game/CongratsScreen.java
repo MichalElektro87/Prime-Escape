@@ -23,6 +23,7 @@ public class CongratsScreen implements Screen {
         endGameTextActor.setTime(game.gameTime);
         stage.addActor(endGameTextActor);
         game.endGame = false;
+        game.levelNumber++;
     }
 
     @Override

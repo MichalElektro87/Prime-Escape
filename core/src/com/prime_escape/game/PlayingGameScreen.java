@@ -30,6 +30,39 @@ public class PlayingGameScreen implements Screen {
 
     @Override
     public void show() {
+
+        if (game.levelNumber == 1) {
+            game.numberCounter = 9;
+            game.startingNumber = 0;
+        }
+
+        else if (game.levelNumber == 2) {
+            game.numberCounter = 25;
+            game.startingNumber = 0;
+        }
+
+        else if (game.levelNumber == 3) {
+            game.numberCounter = 56;
+            game.startingNumber = 0;
+        }
+
+        else if (game.levelNumber == 4) {
+            game.numberCounter = 90;
+            game.startingNumber = 0;
+        }
+
+        else if (game.levelNumber == 5) {
+            game.numberCounter = 90;
+            game.startingNumber = 90;
+        }
+
+        else {
+            game.numberCounter = 90;
+            game.startingNumber *= 2;
+        }
+
+
+
         stage = new Stage(new StretchViewport(800f, 480f));
         numberActors = new Array<>();
         score = new Score(game);
@@ -40,7 +73,7 @@ public class PlayingGameScreen implements Screen {
         for (int i = 0; i < game.numberCounter; i++) {
             numberActors.add(new NumberActor(game));
             numberActors.get(i).setup();
-            numberActors.get(i).setIdNumber(i);
+            numberActors.get(i).setIdNumber(i + game.startingNumber);
             numberActors.get(i).checkIfPrime();
             numberActors.get(i).getGlyphLayout().setText(game.getDefaultFont(), String.valueOf(numberActors.get(i).getIdNumber()));
             numberActors.get(i).buildInputListener();
