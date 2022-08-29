@@ -46,7 +46,6 @@ public class NumberActor extends Actor {
                             game.score--;
                         }
                     }
-                    System.out.println(game.numberOfPrimes);
                 }
                 return true;
             }

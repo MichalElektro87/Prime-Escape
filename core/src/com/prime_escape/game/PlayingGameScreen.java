@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 public class PlayingGameScreen implements Screen {
 
@@ -29,7 +30,7 @@ public class PlayingGameScreen implements Screen {
 
     @Override
     public void show() {
-        stage = new Stage(new FitViewport(800f, 480f));
+        stage = new Stage(new StretchViewport(800f, 480f));
         numberActors = new Array<>();
         score = new Score(game);
         endGameTextActor = new EndGameTextActor(game);
@@ -44,6 +45,7 @@ public class PlayingGameScreen implements Screen {
             numberActors.get(i).getGlyphLayout().setText(game.getDefaultFont(), String.valueOf(numberActors.get(i).getIdNumber()));
             numberActors.get(i).buildInputListener();
             numberActors.get(i).setTouchable(Touchable.enabled);
+            numberActors.get(i).setVisible(true);
             stage.addActor(numberActors.get(i));
             stage.addActor(score);
             if (numberActors.get(i).isPrime()) {
@@ -97,7 +99,7 @@ public class PlayingGameScreen implements Screen {
 
         elapsedTime+=Gdx.graphics.getDeltaTime();
 
-        Gdx.gl.glClearColor(0, 0.5f, 0.5f, 1);
+        Gdx.gl.glClearColor(0f, 0f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act();
@@ -106,12 +108,12 @@ public class PlayingGameScreen implements Screen {
         if (game.numberOfPrimes <= 0 && !lock) {
             lock = true;
             game.endGame = true;
-            System.out.println("Success!!!");
-            for (int i = 0; i < stage.getActors().size; i ++) {
-                stage.getActors().get(i).setVisible(false);
+            for (int i = 0; i < numberActors.size; i ++) {
+                numberActors.get(i).setVisible(false);
             }
-            endGameTextActor.setTime(elapsedTime);
-            stage.addActor(endGameTextActor);
+            this.dispose();
+            game.gameTime = elapsedTime;
+            game.setScreen(new CongratsScreen(game));
         }
 
     }

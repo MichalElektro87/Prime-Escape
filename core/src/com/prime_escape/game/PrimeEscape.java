@@ -10,6 +10,7 @@ public class PrimeEscape extends Game {
 	public int numberCounter = 90;
 	public int score = 0;
 	public int numberOfPrimes = 0;
+	public float gameTime = 0f;
 
 	@Override
 	public void create () {
