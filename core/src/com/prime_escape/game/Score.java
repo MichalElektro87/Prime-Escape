@@ -14,8 +14,12 @@ public class Score extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        game.getDefaultFont().draw(batch, "Score: " + game.score, 710f, 460f);
+        game.getDefaultFont().draw(batch, "Score: " + game.score, 680f, 460f);
+        game.getDefaultFont().draw(batch, "Primes left: " + game.numberOfPrimes, 680f, 430f);
         game.getDefaultFont().draw(batch, "Level: " + game.levelNumber, 30f, 460f);
+        game.getDefaultFont().draw(batch, "Tap the primes!", 30f, 430f);
+        game.getDefaultFont().draw(batch, "Create Ulam spiral!", 30f, 400f);
+
     }
 
     @Override

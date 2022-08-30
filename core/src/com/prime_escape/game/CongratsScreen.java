@@ -6,11 +6,16 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+
 public class CongratsScreen implements Screen {
 
     private final PrimeEscape game;
     private Stage stage;
     private EndGameTextActor endGameTextActor;
+    private LevelButton levelButton;
+    private ExitButton exitButton;
+    private Table table;
 
     public CongratsScreen (PrimeEscape game) {
         this.game = game;
@@ -18,12 +23,26 @@ public class CongratsScreen implements Screen {
 
     @Override
     public void show() {
-        stage = new Stage(new StretchViewport(800f, 480f));
-        endGameTextActor = new EndGameTextActor(game);
-        endGameTextActor.setTime(game.gameTime);
-        stage.addActor(endGameTextActor);
-        game.endGame = false;
         game.levelNumber++;
+        stage = new Stage(new StretchViewport(800f, 480f));
+        table = new Table();
+        endGameTextActor = new EndGameTextActor(game);
+        levelButton = new LevelButton(game);
+        levelButton.setStage(stage);
+        levelButton.setButtonText();
+        levelButton.setPosition((800f * 1/4) - levelButton.getWidth() / 2, 200f - levelButton.getHeight() / 2);
+        exitButton = new ExitButton(game);
+        exitButton.setStage(stage);
+        exitButton.setButtonText();
+        exitButton.setPosition((800f * 3/4)- exitButton.getWidth() / 2, 200f - exitButton.getHeight() / 2);
+        endGameTextActor.setTime(game.gameTime);
+
+        game.endGame = false;
+        stage.addActor(endGameTextActor);
+        stage.addActor(levelButton);
+        stage.addActor(exitButton);
+
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
@@ -35,10 +54,6 @@ public class CongratsScreen implements Screen {
         stage.act();
         stage.draw();
 
-        if (Gdx.input.justTouched()) {
-            this.dispose();
-            game.setScreen(new PlayingGameScreen(game));
-        }
 
     }
 

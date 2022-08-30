@@ -74,6 +74,9 @@ public class PlayingGameScreen implements Screen {
             numberActors.add(new NumberActor(game));
             numberActors.get(i).setup();
             numberActors.get(i).setIdNumber(i + game.startingNumber);
+            if (numberActors.get(i).getIdNumber() > 1000) {
+                //a new screen end game
+            }
             numberActors.get(i).checkIfPrime();
             numberActors.get(i).getGlyphLayout().setText(game.getDefaultFont(), String.valueOf(numberActors.get(i).getIdNumber()));
             numberActors.get(i).buildInputListener();
