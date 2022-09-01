@@ -1,5 +1,6 @@
 package com.prime_escape.game;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 
@@ -17,7 +18,7 @@ public class PrimeEscape extends Game {
 
 	@Override
 	public void create () {
-		defaultFont = new BitmapFont();
+		defaultFont = new BitmapFont(Gdx.files.internal("gameFont15.fnt"));
 		setScreen(new PlayingGameScreen(this));
 	}
 
