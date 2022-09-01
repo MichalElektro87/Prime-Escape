@@ -39,10 +39,12 @@ public class NumberActor extends Actor {
                 if (!game.endGame) {
                     if (isVisible()) {
                         if (isPrime()) {
+                            game.getClickSound().play();
                             setVisible(false);
                             game.score++;
                             game.numberOfPrimes--;
                         } else {
+                            game.getWrongNumberSound().play();
                             game.score--;
                         }
                     }
