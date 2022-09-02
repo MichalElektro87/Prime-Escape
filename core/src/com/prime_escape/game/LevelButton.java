@@ -14,29 +14,17 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
-public class LevelButton extends Actor {
+public class LevelButton extends Button {
 
     private PrimeEscape game;
-    private Stage stage;
-    private Pixmap pixmap;
-    private ShapeDrawer shapeDrawer;
-    private Texture texture;
-    private TextureRegion region;
-    private String buttonText;
-    private GlyphLayout glyphLayout;
 
     public LevelButton (final PrimeEscape game) {
+        super(game);
         this.game = game;
+    }
 
-        setTouchable(Touchable.enabled);
-
-        pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.WHITE);
-        pixmap.drawPixel(0, 0);
-        texture = new Texture(pixmap);
-        region = new TextureRegion(texture, 0, 0, 1, 1);
-        pixmap.dispose();
-
+    @Override
+    public void setInputListener() {
         addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 game.getClickSound().play();
@@ -44,31 +32,14 @@ public class LevelButton extends Actor {
                 return true;
             }
 
-
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 
             }
-
         });
-
-    }
-
-    public void setStage (Stage stage) {
-        this.stage = stage;
-        shapeDrawer = new ShapeDrawer(stage.getBatch(), region);
-    }
-
-    public void setButtonText () {
-        this.buttonText = "Level " + game.levelNumber;
-        glyphLayout = new GlyphLayout(game.getDefaultFont(), this.buttonText);
-        setSize(glyphLayout.width + 60f, game.getDefaultFont().getCapHeight() + 60f);
-        setBounds(getX(), getY(), getWidth(), getHeight());
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        shapeDrawer.rectangle(getX(), getY(), getWidth(), getHeight(), 2f);
-        game.getDefaultFont().draw(batch, this.buttonText, getX() + 30f, getY() + game.getDefaultFont().getCapHeight() / 2 + getHeight() / 2);
     }
 }

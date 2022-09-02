@@ -8,36 +8,27 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.utils.DelayedRemovalArray;
 
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
-public class ExitButton extends Actor {
+public class ExitButton extends Button {
 
     private PrimeEscape game;
-    private Stage stage;
-    private Pixmap pixmap;
-    private ShapeDrawer shapeDrawer;
-    private Texture texture;
-    private TextureRegion region;
-    private String buttonText;
-    private GlyphLayout glyphLayout;
 
     public ExitButton (final PrimeEscape game) {
+        super(game);
         this.game = game;
-
         setTouchable(Touchable.enabled);
+    }
 
-        pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.WHITE);
-        pixmap.drawPixel(0, 0);
-        texture = new Texture(pixmap);
-        region = new TextureRegion(texture, 0, 0, 1, 1);
-        pixmap.dispose();
-
+    @Override
+    public void setInputListener() {
         addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 
@@ -45,32 +36,18 @@ public class ExitButton extends Actor {
                 return true;
             }
 
-
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 
             }
 
         });
-
-    }
-
-    public void setStage (Stage stage) {
-        this.stage = stage;
-        shapeDrawer = new ShapeDrawer(stage.getBatch(), region);
-    }
-
-    public void setButtonText () {
-        this.buttonText = "Exit";
-        glyphLayout = new GlyphLayout(game.getDefaultFont(), this.buttonText);
-        setSize(glyphLayout.width + 60f, game.getDefaultFont().getCapHeight() + 60f);
-        setBounds(getX(), getY(), getWidth(), getHeight());
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        shapeDrawer.rectangle(getX(), getY(), getWidth(), getHeight(), 2f);
-        game.getDefaultFont().draw(batch, this.buttonText, getX() + 30f, getY() + game.getDefaultFont().getCapHeight() / 2 + getHeight() / 2);
     }
 }
+
+
 

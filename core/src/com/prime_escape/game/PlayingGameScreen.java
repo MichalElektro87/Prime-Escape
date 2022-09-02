@@ -133,6 +133,7 @@ public class PlayingGameScreen implements Screen {
     @Override
     public void render(float delta) {
 
+        game.globalGameTime+=Gdx.graphics.getDeltaTime();
         elapsedTime+=Gdx.graphics.getDeltaTime();
 
         Gdx.gl.glClearColor(0f, 0f, 0.1f, 1);

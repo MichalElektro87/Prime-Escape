@@ -17,7 +17,7 @@ public class PrimeEscape extends Game {
 	public int levelNumber = 1;
 	public int startingNumber = 9;
 	public float gameTime = 0f;
-
+	public float globalGameTime = 0f;
 
 	@Override
 	public void create () {

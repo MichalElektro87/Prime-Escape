@@ -27,14 +27,25 @@ public class CongratsScreen implements Screen {
         stage = new Stage(new StretchViewport(800f, 480f));
         table = new Table();
         endGameTextActor = new EndGameTextActor(game);
+
         levelButton = new LevelButton(game);
+        levelButton.setInputListener();
         levelButton.setStage(stage);
-        levelButton.setButtonText();
+        levelButton.setupShapeDrawer();
+        levelButton.setButtonText("Level " + game.levelNumber);
+        levelButton.setGlyphLayout();
+        levelButton.setSizeAndBounds();
         levelButton.setPosition((800f * 1/4) - levelButton.getWidth() / 2, 200f - levelButton.getHeight() / 2);
+
         exitButton = new ExitButton(game);
+        exitButton.setInputListener();
         exitButton.setStage(stage);
-        exitButton.setButtonText();
+        exitButton.setupShapeDrawer();
+        exitButton.setButtonText("Exit");
+        exitButton.setGlyphLayout();
+        exitButton.setSizeAndBounds();
         exitButton.setPosition((800f * 3/4)- exitButton.getWidth() / 2, 200f - exitButton.getHeight() / 2);
+
         endGameTextActor.setTime(game.gameTime);
 
         game.endGame = false;
