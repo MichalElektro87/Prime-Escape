@@ -15,7 +15,6 @@ public class CongratsScreen implements Screen {
     private EndGameTextActor endGameTextActor;
     private LevelButton levelButton;
     private ExitButton exitButton;
-    private Table table;
 
     public CongratsScreen (PrimeEscape game) {
         this.game = game;
@@ -25,8 +24,6 @@ public class CongratsScreen implements Screen {
     public void show() {
         game.levelNumber++;
         stage = new Stage(new StretchViewport(800f, 480f));
-        table = new Table();
-        endGameTextActor = new EndGameTextActor(game);
 
         levelButton = new LevelButton(game);
         levelButton.setInputListener();
@@ -46,12 +43,14 @@ public class CongratsScreen implements Screen {
         exitButton.setSizeAndBounds();
         exitButton.setPosition((800f * 3/4)- exitButton.getWidth() / 2, 200f - exitButton.getHeight() / 2);
 
+        endGameTextActor = new EndGameTextActor(game);
         endGameTextActor.setTime(game.gameTime);
 
         game.endGame = false;
-        stage.addActor(endGameTextActor);
+
         stage.addActor(levelButton);
         stage.addActor(exitButton);
+        stage.addActor(endGameTextActor);
 
         Gdx.input.setInputProcessor(stage);
     }
@@ -64,13 +63,11 @@ public class CongratsScreen implements Screen {
 
         stage.act();
         stage.draw();
-
-
     }
 
     @Override
     public void resize(int width, int height) {
-
+        stage.getViewport().update(width, height);
     }
 
     @Override

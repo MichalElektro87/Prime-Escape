@@ -1,5 +1,6 @@
 package com.prime_escape.game;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,17 +18,20 @@ import space.earlygrey.shapedrawer.ShapeDrawer;
 public class LevelButton extends Button {
 
     private PrimeEscape game;
+    private Screen screen;
 
     public LevelButton (final PrimeEscape game) {
         super(game);
         this.game = game;
     }
 
+
     @Override
     public void setInputListener() {
         addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 game.getClickSound().play();
+                dispose();
                 game.setScreen(new PlayingGameScreen(game));
                 return true;
             }

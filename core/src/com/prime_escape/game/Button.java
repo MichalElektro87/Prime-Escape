@@ -1,5 +1,6 @@
 package com.prime_escape.game;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,12 +10,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.utils.Disposable;
 
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
-public abstract class Button extends Actor {
+public abstract class Button extends Actor implements Disposable {
 
     private PrimeEscape game;
+    private Screen screen;
     private Stage stage;
     private Pixmap pixmap;
     private ShapeDrawer shapeDrawer;
@@ -57,6 +60,10 @@ public abstract class Button extends Actor {
         setBounds(getX(), getY(), getWidth(), getHeight());
     }
 
+    public Screen getScreen () {
+        return this.screen;
+    }
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
@@ -68,4 +75,8 @@ public abstract class Button extends Actor {
         return shapeDrawer;
     }
 
+    @Override
+    public void dispose() {
+        texture.dispose();
+    }
 }

@@ -1,6 +1,7 @@
 package com.prime_escape.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -20,6 +21,7 @@ import space.earlygrey.shapedrawer.ShapeDrawer;
 public class ExitButton extends Button {
 
     private PrimeEscape game;
+    private Screen screen;
 
     public ExitButton (final PrimeEscape game) {
         super(game);
@@ -31,7 +33,8 @@ public class ExitButton extends Button {
     public void setInputListener() {
         addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-
+                dispose();
+                game.dispose();
                 Gdx.app.exit();
                 return true;
             }

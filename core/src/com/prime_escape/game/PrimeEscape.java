@@ -46,5 +46,8 @@ public class PrimeEscape extends Game {
 
 	@Override
 	public void dispose () {
+		defaultFont.dispose();
+		clickSound.dispose();
+		wrongNumberSound.dispose();
 	}
 }
