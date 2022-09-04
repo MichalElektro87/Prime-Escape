@@ -7,7 +7,7 @@ public class Score extends Actor {
 
     private final PrimeEscape game;
 
-    public Score (PrimeEscape game) {
+    public Score (final PrimeEscape game) {
         this.game = game;
     }
 
@@ -16,9 +16,9 @@ public class Score extends Actor {
         super.draw(batch, parentAlpha);
         game.getDefaultFont().draw(batch, "Score: " + game.score, 680f, 460f);
         game.getDefaultFont().draw(batch, "Primes left: " + game.numberOfPrimes, 680f, 430f);
-        game.getDefaultFont().draw(batch, "Level: " + game.levelNumber, 30f, 460f);
-        game.getDefaultFont().draw(batch, "Tap the primes!", 30f, 430f);
-        game.getDefaultFont().draw(batch, "Create Ulam spiral!", 30f, 400f);
+        game.getDefaultFont().draw(batch, "Level: " + game.levelNumber, 25f, 460f);
+        game.getDefaultFont().draw(batch, "Tap the primes!", 25f, 430f);
+        game.getDefaultFont().draw(batch, "Discover Ulam spiral!", 25f, 400f);
 
     }
 

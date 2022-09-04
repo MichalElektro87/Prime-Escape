@@ -9,34 +9,31 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.utils.Disposable;
 
-public class NumberActor extends Actor {
+public class NumberActor extends Actor implements Disposable {
 
     private final PrimeEscape game;
     private Texture texture;
     private TextureRegion textureRegion;
-    private Rectangle rectangle;
     private GlyphLayout glyphLayout;
     private int idNumber = 0;
     private boolean prime = true;
 
-    public NumberActor (PrimeEscape game) {
+    public NumberActor (final PrimeEscape game) {
         this.game = game;
     }
 
     public void setup () {
         texture = new Texture(Gdx.files.internal("field.png"));
         textureRegion = new TextureRegion(texture);
-        rectangle = new Rectangle();
         setSize(textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
-        rectangle.setSize(getWidth(), getHeight());
         glyphLayout = new GlyphLayout();
     }
 
     public void buildInputListener () {
         addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                if (!game.endGame) {
                     if (isVisible()) {
                         if (isPrime()) {
                             game.getClickSound().play();
@@ -48,7 +45,6 @@ public class NumberActor extends Actor {
                             game.score--;
                         }
                     }
-                }
                 return true;
             }
 
@@ -64,7 +60,7 @@ public class NumberActor extends Actor {
         super.draw(batch, parentAlpha);
 
         batch.draw(textureRegion, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
-        game.getDefaultFont().draw(batch, ""+ idNumber, getX() + getWidth() / 2f - getGlyphLayout().width / 2, getY() + getHeight() / 2f + getGlyphLayout().height / 2);
+        game.getDefaultFont().draw(batch, ""+ idNumber, getX() + getWidth() / 2f - getGlyphLayout().width / 2, getY() + getHeight() / 2f - getGlyphLayout().height / 2 + game.getDefaultFont().getCapHeight());
 
     }
 
@@ -105,4 +101,8 @@ public class NumberActor extends Actor {
         return glyphLayout;
     }
 
+    @Override
+    public void dispose() {
+        texture.dispose();
+    }
 }

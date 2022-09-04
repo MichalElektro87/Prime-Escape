@@ -16,7 +16,7 @@ public class PrimeEscape extends Game {
 	public int numberOfPrimes = 0;
 	public int levelNumber = 1;
 	public int startingNumber = 9;
-	public float gameTime = 0f;
+	public float gameLevelTime = 0f;
 	public float globalGameTime = 0f;
 
 	@Override
@@ -43,6 +43,16 @@ public class PrimeEscape extends Game {
 		return wrongNumberSound;
 	}
 
+	public void resetGameToDefaults () {
+		endGame = false;
+		numberCounter = 90;
+		score = 0;
+		numberOfPrimes = 0;
+		levelNumber = 1;
+		startingNumber = 9;
+		gameLevelTime = 0f;
+		globalGameTime = 0f;
+	}
 
 	@Override
 	public void dispose () {

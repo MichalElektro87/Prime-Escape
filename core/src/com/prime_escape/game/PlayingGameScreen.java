@@ -15,21 +15,22 @@ public class PlayingGameScreen implements Screen {
     private Stage stage;
     private Array<NumberActor> numberActors;
     private Score score;
-    private EndGameTextActor endGameTextActor;
-    private boolean lock = false;
+    private boolean lockEndLevelStatement = false;
+    private boolean lockEndGameStatement = false;
     private int numSteps = 1;
     private int state = 0;
     private int turnCounter = 0;
     private int step = 1;
-    private float elapsedTime = 0f;
 
-    public PlayingGameScreen (PrimeEscape game) {
+    public PlayingGameScreen (final PrimeEscape game) {
         this.game = game;
     }
 
 
     @Override
     public void show() {
+
+        game.gameLevelTime = 0f;
 
         if (game.levelNumber == 1) {
             game.numberCounter = 9;
@@ -61,13 +62,9 @@ public class PlayingGameScreen implements Screen {
             game.startingNumber *= 2;
         }
 
-
-
-        stage = new Stage(new StretchViewport(800f, 480f));
+        stage = new Stage(new FitViewport(800f, 480f));
         numberActors = new Array<>();
         score = new Score(game);
-        endGameTextActor = new EndGameTextActor(game);
-        endGameTextActor.setup();
         Gdx.input.setInputProcessor(stage);
 
         for (int i = 0; i < game.numberCounter; i++) {
@@ -75,7 +72,7 @@ public class PlayingGameScreen implements Screen {
             numberActors.get(i).setup();
             numberActors.get(i).setIdNumber(i + game.startingNumber);
             if (numberActors.get(i).getIdNumber() > 1000) {
-                //a new screen end game
+               game.endGame = true;
             }
             numberActors.get(i).checkIfPrime();
             numberActors.get(i).getGlyphLayout().setText(game.getDefaultFont(), String.valueOf(numberActors.get(i).getIdNumber()));
@@ -134,7 +131,7 @@ public class PlayingGameScreen implements Screen {
     public void render(float delta) {
 
         game.globalGameTime+=Gdx.graphics.getDeltaTime();
-        elapsedTime+=Gdx.graphics.getDeltaTime();
+        game.gameLevelTime+=Gdx.graphics.getDeltaTime();
 
         Gdx.gl.glClearColor(0f, 0f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -142,15 +139,20 @@ public class PlayingGameScreen implements Screen {
         stage.act();
         stage.draw();
 
-        if (game.numberOfPrimes <= 0 && !lock) {
-            lock = true;
-            game.endGame = true;
+
+        if (game.endGame && !lockEndGameStatement) {
+            lockEndGameStatement = true;
+            this.dispose();
+            game.setScreen(new EndGameScreen(game));
+        }
+
+        if (game.numberOfPrimes <= 0 && !lockEndLevelStatement) {
+            lockEndLevelStatement = true;
             for (int i = 0; i < numberActors.size; i ++) {
                 numberActors.get(i).setVisible(false);
             }
             this.dispose();
-            game.gameTime = elapsedTime;
-            game.setScreen(new CongratsScreen(game));
+            game.setScreen(new EndLevelScreen(game));
         }
 
     }
@@ -177,6 +179,10 @@ public class PlayingGameScreen implements Screen {
 
     @Override
     public void dispose() {
+        stage.dispose();
 
+        for (int i = 0; i < numberActors.size; i++) {
+            numberActors.get(i).dispose();
+        }
     }
 }

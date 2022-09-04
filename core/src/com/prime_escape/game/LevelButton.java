@@ -1,24 +1,12 @@
 package com.prime_escape.game;
 
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-
-import space.earlygrey.shapedrawer.ShapeDrawer;
 
 public class LevelButton extends Button {
 
-    private PrimeEscape game;
-    private Screen screen;
+    private final PrimeEscape game;
 
     public LevelButton (final PrimeEscape game) {
         super(game);
@@ -32,6 +20,7 @@ public class LevelButton extends Button {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 game.getClickSound().play();
                 dispose();
+                getScreen().dispose();
                 game.setScreen(new PlayingGameScreen(game));
                 return true;
             }
